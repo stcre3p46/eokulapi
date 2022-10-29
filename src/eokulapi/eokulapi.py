@@ -139,7 +139,7 @@ class EokulAPI:
         student.marks = MarkContainer.from_dict(resp.json())
         return resp.json()
 
-    def __update_absenteeism(self, student: EokulStudent) -> None:
+    def __update_absenteeism(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["absenteeism"],
             headers=self.__header_generator(student.token),
@@ -152,7 +152,7 @@ class EokulAPI:
         student.absenteeism = AbsenteeismContainer.from_dict(resp.json())
         return resp.json()
 
-    def __update_lesson_schedule(self, student: EokulStudent) -> None:
+    def __update_lesson_schedule(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["lesson_schedule"],
             headers=self.__header_generator(student.token),
@@ -165,7 +165,7 @@ class EokulAPI:
         student.lesson_schedule = LessonSchedule.from_dict(resp.json())
         return resp.json()
 
-    def __update_exam_schedule(self, student: EokulStudent) -> None:
+    def __update_exam_schedule(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["exam_schedule"],
             headers=self.__header_generator(student.token),
@@ -178,7 +178,7 @@ class EokulAPI:
         student.exam_schedule = ExamScheduleContainer.from_dict(resp.json())
         return resp.json()
 
-    def __update_class_exam_average(self, student: EokulStudent) -> None:
+    def __update_class_exam_average(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["avg_marks"],
             headers=self.__header_generator(student.token),
@@ -191,7 +191,7 @@ class EokulAPI:
         student.class_exam_average = AvgMarkContainer.from_dict(resp.json())
         return resp.json()
 
-    def __update_endterm_marks(self, student: EokulStudent) -> None:
+    def __update_endterm_marks(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["endterm_marks"],
             headers=self.__header_generator(student.token),
@@ -204,7 +204,7 @@ class EokulAPI:
         student.endterm_marks = EndtermMarkContainer.from_dict(resp.json())
         return resp.json()
 
-    def __update_transfer(self, student: EokulStudent) -> None:
+    def __update_transfer(self, student: EokulStudent) -> dict:
         return "not implemented"
         resp = self.session.post(
             url=api + routes["transfer"],
@@ -218,7 +218,7 @@ class EokulAPI:
         student.transfer = Transfer.from_dict(resp.json())
         return resp.json()
 
-    def __update_responsibility(self, student: EokulStudent) -> None:
+    def __update_responsibility(self, student: EokulStudent) -> dict:
         return "not implemented"
         resp = self.session.post(
             url=api + routes["responsibility"],
@@ -232,7 +232,7 @@ class EokulAPI:
         student.responsibility = Responsibility.from_dict(resp.json())
         return resp.json()
 
-    def __update_documents(self, student: EokulStudent) -> None:
+    def __update_documents(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["documents"],
             headers=self.__header_generator(student.token),
@@ -245,7 +245,7 @@ class EokulAPI:
         student.documents = DocumentContainer.from_dict(resp.json())
         return resp.json()
 
-    def __update_additional_exams(self, student: EokulStudent) -> None:
+    def __update_additional_exams(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["additional_exam"],
             headers=self.__header_generator(student.token),
