@@ -5,9 +5,9 @@ from eokulapi.Models import from_str
 
 @dataclass
 class Document:
-    belgeturu: str
-    donem: str
-    sinif: str
+    doc_type: str
+    term: str
+    grade: str
 
     @staticmethod
     def from_dict(obj: dict) -> "Document":

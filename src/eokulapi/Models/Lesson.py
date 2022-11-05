@@ -1,21 +1,21 @@
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import time
 
-from eokulapi.Models import from_int, from_none, from_str, from_union
+from eokulapi.Models import from_int, from_none, from_str, from_union, str_to_time
 
 
 @dataclass
 class Lesson:
-    start: datetime.time
-    end: datetime.time
+    start: time
+    end: time
     name: str
     nth: int
     teacher: str | None
 
     @staticmethod
     def from_dict(obj: dict) -> "Lesson":
-        start = from_str(obj.get("Baslangic_Saati"))
-        end = from_str(obj.get("Bitis_Saati"))
+        start = str_to_time(obj.get("Baslangic_Saati"))
+        end = str_to_time(obj.get("Bitis_Saati"))
         name = from_str(obj.get("Ders"))
         nth = from_int(obj.get("KacinciDers"))
         teacher = from_union([from_str, from_none], obj.get("Ogretmen"))

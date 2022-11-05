@@ -1,22 +1,21 @@
 from dataclasses import dataclass
-from typing import Optional
 
-from eokulapi.Models import from_float, from_list, from_str, month_to_int
+from eokulapi.Models import from_float, from_list, from_str, month_to_int, str_to_float
 from eokulapi.Models.Absenteeism import Absenteeism
 
 
 @dataclass
 class AbsenteeismContainer:
-    ozurlu: float
-    ozursuz: float
-    by_month: Optional[dict[int, float]]
-    devamsizliklistesi: Optional[list[Absenteeism]]
+    excused_count: float
+    not_excused_count: float
+    by_month: dict[int, float]
+    data: list[Absenteeism]
 
     @staticmethod
     def from_dict(obj: dict) -> "AbsenteeismContainer":
         by_month: dict = {}
-        ozurlu = from_float(float(from_str(obj.get("Ozurlu")).replace(",", ".")))
-        ozursuz = from_float(float(from_str(obj.get("Ozursuz")).replace(",", ".")))
+        ozurlu = str_to_float(obj.get("Ozurlu"))
+        ozursuz = str_to_float(obj.get("Ozursuz"))
 
         for abs in obj.get("DevamsizlikGrafikler"):
             ay = from_str(abs.get("Ay"))

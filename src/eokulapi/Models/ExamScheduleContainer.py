@@ -1,17 +1,26 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Iterable, Optional
 
 from eokulapi.Models import from_list
 from eokulapi.Models.ExamSchedule import ExamSchedule
 
 
+def _flatten(lis):
+    for item in lis:
+        if isinstance(item, Iterable) and not isinstance(item, str):
+            for x in _flatten(item):
+                yield x
+        else:
+            yield item
+
+
 @dataclass
 class ExamScheduleContainer:
-    sinavtarihleri: Optional[list[ExamSchedule]]
+    data: Optional[list[ExamSchedule]]
 
     @staticmethod
     def from_dict(obj: dict) -> "ExamScheduleContainer":
-        tarihler = from_list(ExamSchedule.from_dict, obj.get("SinavTarihleriListesi"))
-        tarihler = list(filter(lambda item: item is not None, tarihler))
+        schedule_list = from_list(ExamSchedule.from_dict, obj.get("SinavTarihleriListesi"))
+        schedule_list = list(filter(lambda item: item is not None, _flatten(schedule_list)))
 
-        return ExamScheduleContainer(tarihler)
+        return ExamScheduleContainer(schedule_list)

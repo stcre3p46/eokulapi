@@ -1,4 +1,3 @@
-import logging
 import random
 import secrets
 from base64 import b64decode
@@ -49,8 +48,6 @@ class EokulAPI:
         self.students: list[EokulStudent] = []
         self.session = requests.session()
         self.session.hooks = dict(response=self.__hook)
-        self.__logger = logging.getLogger(__name__)
-        self.__logger.setLevel(logging.DEBUG)
         self.register()
 
     def register(self) -> dict:
@@ -105,28 +102,28 @@ class EokulAPI:
                 EokulStudent(
                     student["Tckn"],
                     student["AdSoyad"],
-                    b64decode(student["Fotograf"]),
                     login["OgrenciToken"],
                     login["Sinif"],
                     login["SinifNo"],
                     login["Numarasi"],
+                    b64decode(student["Fotograf"]),
                 )
             )
         return self.students
 
     def update_student_data(self, student: EokulStudent) -> None:
-        self.__update_marks(student)
-        self.__update_absenteeism(student)
-        self.__update_lesson_schedule(student)
-        self.__update_exam_schedule(student)
-        self.__update_class_exam_average(student)
-        self.__update_endterm_marks(student)
-        self.__update_transfer(student)
-        self.__update_responsibility(student)
-        self.__update_documents(student)
-        self.__update_additional_exams(student)
+        self._update_marks(student)
+        self._update_absenteeism(student)
+        self._update_lesson_schedule(student)
+        self._update_exam_schedule(student)
+        self._update_class_exam_average(student)
+        self._update_endterm_marks(student)
+        self._update_transfer(student)
+        self._update_responsibility(student)
+        self._update_documents(student)
+        self._update_additional_exams(student)
 
-    def __update_marks(self, student: EokulStudent) -> None:
+    def _update_marks(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["marks"],
             headers=self.__header_generator(student.token),
@@ -139,7 +136,7 @@ class EokulAPI:
         student.marks = MarkContainer.from_dict(resp.json())
         return resp.json()
 
-    def __update_absenteeism(self, student: EokulStudent) -> dict:
+    def _update_absenteeism(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["absenteeism"],
             headers=self.__header_generator(student.token),
@@ -152,7 +149,7 @@ class EokulAPI:
         student.absenteeism = AbsenteeismContainer.from_dict(resp.json())
         return resp.json()
 
-    def __update_lesson_schedule(self, student: EokulStudent) -> dict:
+    def _update_lesson_schedule(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["lesson_schedule"],
             headers=self.__header_generator(student.token),
@@ -165,7 +162,7 @@ class EokulAPI:
         student.lesson_schedule = LessonSchedule.from_dict(resp.json())
         return resp.json()
 
-    def __update_exam_schedule(self, student: EokulStudent) -> dict:
+    def _update_exam_schedule(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["exam_schedule"],
             headers=self.__header_generator(student.token),
@@ -178,7 +175,7 @@ class EokulAPI:
         student.exam_schedule = ExamScheduleContainer.from_dict(resp.json())
         return resp.json()
 
-    def __update_class_exam_average(self, student: EokulStudent) -> dict:
+    def _update_class_exam_average(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["avg_marks"],
             headers=self.__header_generator(student.token),
@@ -191,7 +188,7 @@ class EokulAPI:
         student.class_exam_average = AvgMarkContainer.from_dict(resp.json())
         return resp.json()
 
-    def __update_endterm_marks(self, student: EokulStudent) -> dict:
+    def _update_endterm_marks(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["endterm_marks"],
             headers=self.__header_generator(student.token),
@@ -204,8 +201,8 @@ class EokulAPI:
         student.endterm_marks = EndtermMarkContainer.from_dict(resp.json())
         return resp.json()
 
-    def __update_transfer(self, student: EokulStudent) -> dict:
-        return "not implemented"
+    def _update_transfer(self, student: EokulStudent) -> dict:
+        return {"error": "not implemented"}
         resp = self.session.post(
             url=api + routes["transfer"],
             headers=self.__header_generator(student.token),
@@ -218,8 +215,8 @@ class EokulAPI:
         student.transfer = Transfer.from_dict(resp.json())
         return resp.json()
 
-    def __update_responsibility(self, student: EokulStudent) -> dict:
-        return "not implemented"
+    def _update_responsibility(self, student: EokulStudent) -> dict:
+        return {"error": "not implemented"}
         resp = self.session.post(
             url=api + routes["responsibility"],
             headers=self.__header_generator(student.token),
@@ -232,7 +229,7 @@ class EokulAPI:
         student.responsibility = Responsibility.from_dict(resp.json())
         return resp.json()
 
-    def __update_documents(self, student: EokulStudent) -> dict:
+    def _update_documents(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["documents"],
             headers=self.__header_generator(student.token),
@@ -245,7 +242,7 @@ class EokulAPI:
         student.documents = DocumentContainer.from_dict(resp.json())
         return resp.json()
 
-    def __update_additional_exams(self, student: EokulStudent) -> dict:
+    def _update_additional_exams(self, student: EokulStudent) -> dict:
         resp = self.session.post(
             url=api + routes["additional_exam"],
             headers=self.__header_generator(student.token),
@@ -253,7 +250,7 @@ class EokulAPI:
                 "sifre": api_fixed_password,
                 "uid": self.uid,
                 "gid": self.gid,
-                "sinifNo": str(student.sinifno),
+                "sinifNo": str(student.grade),
             },
         )
         student.additionalexams = AdditionalExam.from_dict(resp.json())

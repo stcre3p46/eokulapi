@@ -6,7 +6,7 @@ from eokulapi.Models.AvgMarkLesson import AvgMarkLesson
 
 @dataclass
 class AvgMarkContainer:
-    liste: list[AvgMarkLesson]
+    data: list[AvgMarkLesson]
 
     @staticmethod
     def from_dict(obj: dict) -> "AvgMarkContainer":

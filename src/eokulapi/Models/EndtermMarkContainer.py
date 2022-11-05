@@ -7,7 +7,7 @@ from eokulapi.Models.EndtermMark import EndtermMark
 
 @dataclass
 class EndtermMarkContainer:
-    notlistesi: Optional[list[EndtermMark]]
+    data: Optional[list[EndtermMark]]
 
     @staticmethod
     def from_dict(obj: dict) -> "EndtermMarkContainer":

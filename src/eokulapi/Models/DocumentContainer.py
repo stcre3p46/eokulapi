@@ -7,7 +7,7 @@ from eokulapi.Models.Document import Document
 
 @dataclass
 class DocumentContainer:
-    belgeler: Optional[list[Document]]
+    data: Optional[list[Document]]
 
     @staticmethod
     def from_dict(obj: dict) -> "DocumentContainer":

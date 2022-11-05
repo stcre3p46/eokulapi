@@ -1,19 +1,19 @@
 from dataclasses import dataclass
 from typing import Any
 
-from eokulapi.Models import from_float, from_int, from_str
+from eokulapi.Models import from_int, from_str, str_to_float
 
 
 @dataclass
 class MarkLesson:
-    ders: str
-    derskodu: str
-    derssaati: int
-    donem: int
-    muaf: bool
-    ODV: Any
-    TPU: Any
-    puan: float
+    lesson: str
+    lesson_id: str
+    lesson_weekly_period: int
+    term: int
+    isExempt: bool
+    odv: Any
+    tpu: Any
+    score: float
     sozlu: dict[int, float]
     yazili: dict[int, float]
 
@@ -26,7 +26,7 @@ class MarkLesson:
         muaf = False if from_str(obj.get("Muaf")) == "-" else True
         odv = obj.get("ODV")
         tpu = obj.get("TPU")
-        puan = from_float(float(from_str(obj.get("PUANI")).replace(",", ".")))
+        puan = str_to_float(obj.get("PUANI"))
 
         sozlu: dict[int, float] = {}
         yazili: dict[int, float] = {}
@@ -34,10 +34,10 @@ class MarkLesson:
         for i in range(1, 7):
             dat = from_str(obj.get(f"SZL{i}"))
             if dat:
-                sozlu[i] = float(dat.replace(",", "."))
+                sozlu[i] = str_to_float(dat)
         for i in range(1, 7):
             dat = from_str(obj.get(f"Y{i}"))
             if dat:
-                yazili[i] = float(dat.replace(",", "."))
+                yazili[i] = str_to_float(dat)
 
         return MarkLesson(ders, ders_kodu, ders_saati, donem, muaf, odv, tpu, puan, sozlu, yazili)

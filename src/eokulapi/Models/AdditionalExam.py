@@ -1,15 +1,14 @@
 from dataclasses import dataclass
-from typing import Optional
 
 from eokulapi.Models import from_list, from_str
 
 
 @dataclass
 class AdditionalExam:
-    name: Optional[str]
-    basvurulistesi: list
-    sonuclistesi: list
-    yerlistesi: list
+    name: str | None
+    appeal: list
+    result: list
+    location: list
 
     @staticmethod
     def from_dict(obj: dict) -> "AdditionalExam":

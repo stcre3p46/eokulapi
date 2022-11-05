@@ -16,12 +16,11 @@ from eokulapi.Models.Transfer import Transfer
 @dataclass
 class EokulStudent:
     tckn: int
-    adsoyad: str
-    photo: bytes
+    name: str
     token: str
-    sinif: str
-    sinifno: int
-    no: int
+    class_: str
+    grade: int
+    number: int
     photo: bytes
     marks: Optional[MarkContainer] = None
     absenteeism: Optional[AbsenteeismContainer] = None
