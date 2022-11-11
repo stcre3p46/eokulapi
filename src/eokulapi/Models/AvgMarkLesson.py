@@ -6,12 +6,25 @@ from eokulapi.Models.AvgMark import AvgMark
 
 @dataclass
 class AvgMarkLesson:
-    lesson_name: str
-    term: int
-    marks: dict[int, AvgMark]
+    """Average mark lesson model"""
 
-    @staticmethod
-    def from_dict(obj: dict) -> "AvgMarkLesson":
+    lesson_name: str
+    """Name of the lesson"""
+    term: int
+    """Term of the lesson"""
+    marks: dict[int, AvgMark]
+    """Marks of the lesson as dict of AvgMark objects (Exam Number: AvgMark)"""
+
+    @classmethod
+    def from_dict(cls, obj: dict):
+        """Converts a dict to AvgMarkLesson object
+
+        Args:
+            obj (dict): Object to be converted
+
+        Returns:
+            AvgMarkLesson: AvgMarkLesson object that is converted from dict
+        """
         ders = from_str(obj.get("DERS"))
         donem = from_int(int(from_str(obj.get("DONEM"))))
         marks = {}
@@ -25,4 +38,4 @@ class AvgMarkLesson:
                 }
             )
             marks[i] = mark
-            return AvgMarkLesson(ders, donem, marks)
+            return cls(ders, donem, marks)

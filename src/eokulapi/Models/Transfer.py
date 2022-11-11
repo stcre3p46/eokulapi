@@ -3,10 +3,11 @@ from dataclasses import dataclass
 
 @dataclass
 class Transfer:
-    """not implemented"""
+    """not implemented Transfer model"""
 
     pass
 
-    @staticmethod
-    def from_dict(obj: dict) -> "Transfer":
-        return Transfer()
+    @classmethod
+    def from_dict(cls, obj: dict):
+        """Not implemented method to convert a dict to Transfer object"""
+        return cls()

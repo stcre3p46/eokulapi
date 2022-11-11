@@ -5,15 +5,31 @@ from eokulapi.Models import from_list, from_str
 
 @dataclass
 class AdditionalExam:
-    name: str | None
-    appeal: list
-    result: list
-    location: list
+    """Additional exam model"""
 
-    @staticmethod
-    def from_dict(obj: dict) -> "AdditionalExam":
+    name: str | None
+    """Name of the additional exam"""
+
+    appeal: list
+    """Appeal state of the additional exam"""
+
+    result: list
+    """Result of the additional exam"""
+    location: list
+    """Location of the additional exam"""
+
+    @classmethod
+    def from_dict(cls, obj: dict):
+        """Converts a dict to AdditionalExam object
+
+        Args:
+            obj (dict): Object to be converted
+
+        Returns:
+            AdditionalExam: AdditionalExam object that is converted from dict
+        """
         name = from_str(obj.get("SinavAdi"))
         basv = from_list(list, obj.get("sinavBasvuruListesi"))
         sonuc = from_list(list, obj.get("sinavSonucListesi"))
         yer = from_list(list, obj.get("sinavYeriListesi"))
-        return AdditionalExam(name, basv, sonuc, yer)
+        return cls(name, basv, sonuc, yer)

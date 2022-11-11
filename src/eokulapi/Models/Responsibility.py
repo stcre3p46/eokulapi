@@ -3,10 +3,11 @@ from dataclasses import dataclass
 
 @dataclass
 class Responsibility:
-    """not implemented"""
+    """Not implemented Responsibility model"""
 
     pass
 
-    @staticmethod
-    def from_dict(obj: dict) -> "Responsibility":
-        return Responsibility()
+    @classmethod
+    def from_dict(cls, obj: dict):
+        """Not implemented method to convert a dict to Responsibility object"""
+        return cls()

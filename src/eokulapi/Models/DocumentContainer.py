@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Optional
 
 from eokulapi.Models import from_list
 from eokulapi.Models.Document import Document
@@ -7,9 +6,20 @@ from eokulapi.Models.Document import Document
 
 @dataclass
 class DocumentContainer:
-    data: Optional[list[Document]]
+    """Document container model"""
 
-    @staticmethod
-    def from_dict(obj: dict) -> "DocumentContainer":
+    data: list[Document]
+    """Document data as list of Document objects"""
+
+    @classmethod
+    def from_dict(cls, obj: dict):
+        """Converts a dict to DocumentContainer object
+
+        Args:
+            obj (dict): Object to be converted
+
+        Returns:
+            DocumentContainer: DocumentContainer object that is converted from dict
+        """
         liste = from_list(Document.from_dict, obj.get("TumBelgeler"))
-        return DocumentContainer(liste)
+        return cls(liste)

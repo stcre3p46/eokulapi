@@ -6,9 +6,20 @@ from eokulapi.Models.LessonDay import LessonDay
 
 @dataclass
 class LessonSchedule:
-    data: list[LessonDay]
+    """Lesson schedule model"""
 
-    @staticmethod
-    def from_dict(obj: dict) -> "LessonSchedule":
+    data: list[LessonDay]
+    """Lesson schedule data as list of LessonDay objects"""
+
+    @classmethod
+    def from_dict(cls, obj: dict):
+        """Converts a dict to LessonSchedule object
+
+        Args:
+            obj (dict): Object to be converted
+
+        Returns:
+            LessonSchedule: LessonSchedule object that is converted from dict
+        """
         liste = from_list(LessonDay.from_dict, obj.get("DersProgramiListesi"))
-        return LessonSchedule(liste)
+        return cls(liste)

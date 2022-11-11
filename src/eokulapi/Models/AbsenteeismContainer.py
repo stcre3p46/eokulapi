@@ -6,13 +6,27 @@ from eokulapi.Models.Absenteeism import Absenteeism
 
 @dataclass
 class AbsenteeismContainer:
-    excused_count: float
-    not_excused_count: float
-    by_month: dict[int, float]
-    data: list[Absenteeism]
+    """Absenteeism container model"""
 
-    @staticmethod
-    def from_dict(obj: dict) -> "AbsenteeismContainer":
+    excused_count: float
+    """Excused absence count"""
+    not_excused_count: float
+    """Not excused absence count"""
+    by_month: dict[int, float]
+    """Absence count by month"""
+    data: list[Absenteeism]
+    """Absenteeism data as list of Absenteeism objects"""
+
+    @classmethod
+    def from_dict(cls, obj: dict):
+        """Converts a dict to AbsenteeismContainer object
+
+        Args:
+            obj (dict): Object to be converted
+
+        Returns:
+            AbsenteeismContainer: AbsenteeismContainer object that is converted from dict
+        """
         by_month: dict = {}
         ozurlu = str_to_float(obj.get("Ozurlu"))
         ozursuz = str_to_float(obj.get("Ozursuz"))
@@ -24,4 +38,4 @@ class AbsenteeismContainer:
             by_month[ay_int] = gun
 
         liste = from_list(Absenteeism.from_dict, obj.get("DevamsizlikListesi"))
-        return AbsenteeismContainer(ozurlu, ozursuz, by_month, liste)
+        return cls(ozurlu, ozursuz, by_month, liste)
