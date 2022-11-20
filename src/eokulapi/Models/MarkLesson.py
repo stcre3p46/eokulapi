@@ -67,20 +67,25 @@ class MarkLesson:
             AssertionError: If arguments are invalid
 
         Returns:
-            str: String representation of the mark
+            str: String representation of the mark (e.g. `matematik 1. dönem 2. yazılı`)
         """
 
         assert mark_type in [True, False]
         assert mark_no in range(1, 7)
 
         string = ""
+
+        string += self.lesson.replace("I", "ı").lower()  # to deal with Turkish characters
+
+        string += " "
+
         if self.term % 2 == 0:
             string += "1. dönem"
         else:
             string += "2. dönem"
 
         string += " "
-        
+
         if mark_type:  # yazili
             if 1 <= mark_no <= 5:
                 string += f"{mark_no}. yazılı"
