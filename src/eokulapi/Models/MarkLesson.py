@@ -78,6 +78,9 @@ class MarkLesson:
             string += "1. dönem"
         else:
             string += "2. dönem"
+
+        string += " "
+        
         if mark_type:  # yazili
             if 1 <= mark_no <= 5:
                 string += f"{mark_no}. yazılı"
