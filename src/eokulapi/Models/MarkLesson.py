@@ -56,39 +56,6 @@ class MarkLesson:
     
     Note that all of the keys are *not* present in all of the lessons."""
 
-    @classmethod
-    def from_dict(cls, obj: dict):
-        """Converts a dict to MarkLesson object
-
-        Args:
-            obj (dict): Object to be converted
-
-        Returns:
-            MarkLesson: MarkLesson object that is converted from dict
-        """
-        ders = from_str(obj.get("Ders"))
-        ders_kodu = from_str(obj.get("DersKodu"))
-        ders_saati = from_int(int(from_str(obj.get("DersSaati"))))
-        donem = from_int(int(from_str(obj.get("Donem"))))
-        muaf = False if from_str(obj.get("Muaf")) == "-" else True
-        odv = obj.get("ODV")
-        tpu = obj.get("TPU")
-        puan = str_to_float(obj.get("PUANI"))
-
-        sozlu: dict[int, float] = {}
-        yazili: dict[int, float] = {}
-
-        for i in range(1, 7):
-            dat = from_str(obj.get(f"SZL{i}"))
-            if dat:
-                sozlu[i] = str_to_float(dat)
-        for i in range(1, 7):
-            dat = from_str(obj.get(f"Y{i}"))
-            if dat:
-                yazili[i] = str_to_float(dat)
-
-        return cls(ders, ders_kodu, ders_saati, donem, muaf, odv, tpu, puan, sozlu, yazili)
-
     def mark_to_str(self, mark_type: bool, mark_no: int) -> str:
         """Converts a mark number to a string representation of the mark
 
@@ -123,3 +90,36 @@ class MarkLesson:
                 string += f"{mark_no-3}. uygulama"
 
         return string
+
+    @classmethod
+    def from_dict(cls, obj: dict):
+        """Converts a dict to MarkLesson object
+
+        Args:
+            obj (dict): Object to be converted
+
+        Returns:
+            MarkLesson: MarkLesson object that is converted from dict
+        """
+        ders = from_str(obj.get("Ders"))
+        ders_kodu = from_str(obj.get("DersKodu"))
+        ders_saati = from_int(int(from_str(obj.get("DersSaati"))))
+        donem = from_int(int(from_str(obj.get("Donem"))))
+        muaf = False if from_str(obj.get("Muaf")) == "-" else True
+        odv = obj.get("ODV")
+        tpu = obj.get("TPU")
+        puan = str_to_float(obj.get("PUANI"))
+
+        sozlu: dict[int, float] = {}
+        yazili: dict[int, float] = {}
+
+        for i in range(1, 7):
+            dat = from_str(obj.get(f"SZL{i}"))
+            if dat:
+                sozlu[i] = str_to_float(dat)
+        for i in range(1, 7):
+            dat = from_str(obj.get(f"Y{i}"))
+            if dat:
+                yazili[i] = str_to_float(dat)
+
+        return cls(ders, ders_kodu, ders_saati, donem, muaf, odv, tpu, puan, sozlu, yazili)
