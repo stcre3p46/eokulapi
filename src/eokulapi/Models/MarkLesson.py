@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from eokulapi.Models import from_int, from_str, str_to_float
+from eokulapi.Models.AvgMarkLesson import AvgMarkLesson
 
 
 @dataclass
@@ -98,6 +99,32 @@ class MarkLesson:
                 string += f"{mark_no-3}. uygulama"
 
         return string
+
+    def __eq__(self, object: object) -> bool:
+        """Overrides the default implementation for equality
+
+        Args:
+            o (object): Object to compare
+
+        Returns:
+            bool: Whether the object's and self's lesson_id and term are equal
+        """
+        if isinstance(object, MarkLesson):
+            return self.lesson_id == object.lesson_id and self.term == object.term
+        return self is object
+
+    def isAvgmarkOfSelf(self, object: object) -> bool:
+        """Checks whether the object is an average mark object for self
+
+        Args:
+            o (object): Object to check
+
+        Returns:
+            bool: Whether the object is an average mark object for self
+        """
+        if isinstance(object, AvgMarkLesson):
+            return object.lesson_name == self.lesson and object.term == self.term
+        return False
 
     @classmethod
     def from_dict(cls, obj: dict):
