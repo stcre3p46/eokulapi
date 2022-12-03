@@ -101,18 +101,18 @@ class MarkLesson:
 
         return string
 
-    def __eq__(self, object: object) -> bool:
-        """Overrides the default implementation for equality
+    def isMarkOfSelf(self, object: object) -> bool:
+        """Checks whether the object is a mark object for self
 
         Args:
-            o (object): Object to compare
+            o (object): Object to check
 
         Returns:
-            bool: Whether the object's and self's lesson_id and term are equal
+            bool: Whether the object is a mark object for self
         """
         if isinstance(object, MarkLesson):
-            return self.lesson_id == object.lesson_id and self.term == object.term
-        return self is object
+            return object.lesson == self.lesson and object.term == self.term
+        return False
 
     def isAvgmarkOfSelf(self, object: object) -> bool:
         """Checks whether the object is an average mark object for self
