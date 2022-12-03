@@ -11,7 +11,9 @@ class AvgMarkLesson:
     lesson_name: str
     """Name of the lesson"""
     term: int
-    """Term of the lesson"""
+    """Term of the lesson
+    
+    it is even for the first term and odd for the second term"""
     marks: dict[int, AvgMark]
     """Marks of the lesson as dict of AvgMark objects (Exam Number: AvgMark)"""
 

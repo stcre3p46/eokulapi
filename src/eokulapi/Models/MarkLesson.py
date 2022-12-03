@@ -21,6 +21,7 @@ class MarkLesson:
     """Weekly period count of the lesson"""
     term: int
     """Term of the lesson
+    
     it is even for the first term and odd for the second term"""
     isExempt: bool
     """Whether the student is exempt from the lesson"""
