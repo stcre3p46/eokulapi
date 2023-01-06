@@ -1,3 +1,5 @@
+# exit(0) # skip tests
+
 from os import environ
 from pprint import pprint
 
@@ -9,6 +11,10 @@ load_dotenv()
 user = EokulAPI(uid=environ["EOKUL_UID"])
 
 st = user.students[0]
+
+user.update_student_data(st)
+
+user.student_dict[st.tckn] = (st, "anan")
 
 user.update_student_data(st)
 

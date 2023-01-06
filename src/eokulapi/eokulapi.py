@@ -135,13 +135,16 @@ class EokulAPI:
         self.student_dict.clear()
         for student in data["OgrenciListesi"]:
             login = self.__student_login(student["Tckn"])
-            self.student_dict[login["OgrenciToken"]] = EokulStudent(
-                student["Tckn"],
-                student["AdSoyad"],
-                login["Sinif"],
-                login["SinifNo"],
-                login["Numarasi"],
-                b64decode(student["Fotograf"]),
+            self.student_dict[student["Tckn"]] = (
+                EokulStudent(
+                    student["Tckn"],
+                    student["AdSoyad"],
+                    login["Sinif"],
+                    login["SinifNo"],
+                    login["Numarasi"],
+                    b64decode(student["Fotograf"]),
+                ),
+                login["OgrenciToken"],
             )
 
     def __get_token(self, student: EokulStudent) -> str:
@@ -154,7 +157,7 @@ class EokulAPI:
             str: Token of the student
             "": If the student is not found
         """
-        token_list = [token for token, st in self.student_dict.items() if st == student]
+        token_list = [token for tckn, (st, token) in self.student_dict.items() if st == student]
         if len(token_list) == 1:
             return token_list[0]
         return ""
@@ -162,7 +165,7 @@ class EokulAPI:
     @property
     def students(self) -> list[EokulStudent]:
         """List of the students"""
-        return [st for _, st in self.student_dict.items()]
+        return [st for tckn, (st, token) in self.student_dict.items()]
 
     def update_student_data(self, student: EokulStudent) -> None:
         """Updates all the data of the student
@@ -432,17 +435,23 @@ class EokulAPI:
 
     def __hook(self, resp: requests.Response, *args, **kwargs):
         """Hook for the requests that handles token refresh actions and errors"""
-        if resp.status_code == requests.codes.unauthorized:
+        if resp.status_code == requests.codes.unauthorized or (
+            "ExceptionMessage" in resp.json()
+            and resp.json()["ExceptionMessage"]
+            == "Object reference not set to an instance of an object."
+        ):
             self.__logger.info("student token expired, refreshing")
-            student = [
-                st
-                for token, st in self.student_dict.items()
+            student_list = [
+                (tckn, st, token)
+                for tckn, (st, token) in self.student_dict.items()
                 if "Bearer " + token == resp.request.headers["Authorization"]
-            ][0]
+            ]
+            student = student_list[0][1]
             self._update_student_list()
             req = resp.request
             req.headers["Authorization"] = "Bearer " + self.__get_token(student)
             return self.session.send(req)
+
         if resp.status_code != requests.codes.ok or resp.json()["DurumKodu"] != requests.codes.ok:
             raise RuntimeError(
                 f"""unexpected response {resp}: {resp.json()} at url {resp.request.url} with request headers {resp.request.headers}"""

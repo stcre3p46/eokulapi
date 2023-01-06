@@ -49,3 +49,8 @@ class EokulStudent:
     """Student's documents as DocumentContainer object"""
     additionalexams: Optional[AdditionalExam] = None
     """Student's additional exam data as AdditionalExam object"""
+
+    def __eq__(self, __o: object) -> bool:
+        if not isinstance(__o, EokulStudent):
+            return False
+        return self.tckn == __o.tckn
