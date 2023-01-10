@@ -38,8 +38,14 @@ class AvgMark:
         Returns:
             AvgMark: AvgMark object that is converted from dict
         """
+
+        string_val = obj.get("value")
+
+        if string_val is None:
+            return cls(None, None, NONE_AVG)
+
         avg_mark = str_to_float(obj.get("avg_mark"))
-        val = str_to_float(obj.get("value"))
+        val = str_to_float(string_val)
         ac_val = from_int(obj.get("description_value"))
 
         return cls(avg_mark, val, ac_val)
