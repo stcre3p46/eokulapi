@@ -40,4 +40,4 @@ class AvgMarkLesson:
                 }
             )
             marks[i] = mark
-            return cls(ders, donem, marks)
+        return cls(ders, donem, marks)
