@@ -14,7 +14,7 @@ st = user.students[0]
 
 user.update_student_data(st)
 
-user.student_dict[st.tckn] = (st, "dummy") # test for token refresh action
+user.student_dict[st.tckn] = (st, "dummy")  # test for token refresh action
 
 user.update_student_data(st)
 
