@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 
 from eokulapi.Models import from_list
+from eokulapi.Models.EokulDictable import EokulDictable
 from eokulapi.Models.LessonDay import LessonDay
 
 
 @dataclass
-class LessonSchedule:
+class LessonSchedule(EokulDictable):
     """Lesson schedule model"""
 
     data: list[LessonDay]
@@ -23,3 +24,12 @@ class LessonSchedule:
         """
         liste = from_list(LessonDay.from_dict, obj.get("DersProgramiListesi"))
         return cls(liste)
+
+    @classmethod
+    def empty(cls):
+        """Creates an object with empty values
+
+        Returns:
+            LessonSchedule: LessonSchedule object with empty values
+        """
+        return cls([])

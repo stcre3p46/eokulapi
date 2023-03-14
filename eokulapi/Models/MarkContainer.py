@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 
 from eokulapi.Models import from_list
+from eokulapi.Models.EokulDictable import EokulDictable
 from eokulapi.Models.MarkLesson import MarkLesson
 
 
 @dataclass
-class MarkContainer:
+class MarkContainer(EokulDictable):
     """Mark container model"""
 
     avg: float | None
@@ -29,3 +30,12 @@ class MarkContainer:
         )
 
         return cls(ort, liste)
+
+    @classmethod
+    def empty(cls):
+        """Creates an object with empty values
+
+        Returns:
+            MarkContainer: MarkContainer object with empty values
+        """
+        return cls(None, [])

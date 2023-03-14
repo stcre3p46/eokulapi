@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Iterable
 
 from eokulapi.Models import from_list
+from eokulapi.Models.EokulDictable import EokulDictable
 from eokulapi.Models.ExamSchedule import ExamSchedule
 
 
@@ -23,7 +24,7 @@ def _flatten(lis: Iterable):
 
 
 @dataclass
-class ExamScheduleContainer:
+class ExamScheduleContainer(EokulDictable):
     """Exam schedule container model"""
 
     data: list[ExamSchedule]
@@ -43,3 +44,12 @@ class ExamScheduleContainer:
         schedule_list = list(filter(lambda item: item is not None, _flatten(schedule_list)))
 
         return cls(schedule_list)
+
+    @classmethod
+    def empty(cls):
+        """Creates an object with empty values
+
+        Returns:
+            ExamScheduleContainer: ExamScheduleContainer object with empty values
+        """
+        return cls([])

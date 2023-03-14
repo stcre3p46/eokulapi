@@ -2,10 +2,11 @@ from dataclasses import dataclass
 
 from eokulapi.Models import from_list
 from eokulapi.Models.AvgMarkLesson import AvgMarkLesson
+from eokulapi.Models.EokulDictable import EokulDictable
 
 
 @dataclass
-class AvgMarkContainer:
+class AvgMarkContainer(EokulDictable):
     """Average mark container model"""
 
     data: list[AvgMarkLesson]
@@ -23,3 +24,12 @@ class AvgMarkContainer:
         """
         liste = from_list(AvgMarkLesson.from_dict, obj.get("YaziliOrtalamaListesi"))
         return cls(liste)
+
+    @classmethod
+    def empty(cls):
+        """Creates an object with empty values
+
+        Returns:
+            AvgMarkContainer: AvgMarkContainer object with empty values
+        """
+        return cls([])

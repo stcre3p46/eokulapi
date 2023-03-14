@@ -1,8 +1,10 @@
 from dataclasses import dataclass
 
+from eokulapi.Models.EokulDictable import EokulDictable
+
 
 @dataclass
-class Responsibility:
+class Responsibility(EokulDictable):
     """Not implemented Responsibility model"""
 
     pass
@@ -10,4 +12,9 @@ class Responsibility:
     @classmethod
     def from_dict(cls, obj: dict):
         """Not implemented method to convert a dict to Responsibility object"""
+        return cls()
+
+    @classmethod
+    def empty(cls):
+        """Not implemented method to create Responsibility object with empty values"""
         return cls()

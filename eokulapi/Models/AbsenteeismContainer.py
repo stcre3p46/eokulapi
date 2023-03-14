@@ -2,10 +2,11 @@ from dataclasses import dataclass
 
 from eokulapi.Models import from_float, from_list, from_str, month_to_int, str_to_float
 from eokulapi.Models.Absenteeism import Absenteeism
+from eokulapi.Models.EokulDictable import EokulDictable
 
 
 @dataclass
-class AbsenteeismContainer:
+class AbsenteeismContainer(EokulDictable):
     """Absenteeism container model"""
 
     excused_count: float
@@ -39,3 +40,12 @@ class AbsenteeismContainer:
 
         liste = from_list(Absenteeism.from_dict, obj.get("DevamsizlikListesi"))
         return cls(ozurlu, ozursuz, by_month, liste)
+
+    @classmethod
+    def empty(cls):
+        """Creates an object with empty values
+
+        Returns:
+            AbsenteeismContainer: AbsenteeismContainer object with empty values
+        """
+        return cls(0, 0, {}, [])

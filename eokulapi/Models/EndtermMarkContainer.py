@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from eokulapi.Models import from_list
 from eokulapi.Models.EndtermMark import EndtermMark
+from eokulapi.Models.EokulDictable import EokulDictable
 
 
 @dataclass
@@ -24,3 +25,12 @@ class EndtermMarkContainer:
         liste = from_list(EndtermMark.from_dict, obj.get("YilSonuNotListesi"))
 
         return cls(liste)
+
+    @classmethod
+    def empty(cls):
+        """Creates an object with empty values
+
+        Returns:
+            EndtermMarkContainer: EndtermMarkContainer object with empty values
+        """
+        return cls([])

@@ -1,10 +1,11 @@
 from dataclasses import dataclass
 
 from eokulapi.Models import from_list, from_str
+from eokulapi.Models.EokulDictable import EokulDictable
 
 
 @dataclass
-class AdditionalExam:
+class AdditionalExam(EokulDictable):
     """Additional exam model"""
 
     name: str | None
@@ -33,3 +34,12 @@ class AdditionalExam:
         sonuc = from_list(list, obj.get("sinavSonucListesi"))
         yer = from_list(list, obj.get("sinavYeriListesi"))
         return cls(name, basv, sonuc, yer)
+
+    @classmethod
+    def empty(cls):
+        """Creates an object with empty values
+
+        Returns:
+            AdditionalExam: AdditionalExam object with empty values
+        """
+        return cls(None, [], [], [])

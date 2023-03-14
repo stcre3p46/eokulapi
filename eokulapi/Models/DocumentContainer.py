@@ -2,10 +2,11 @@ from dataclasses import dataclass
 
 from eokulapi.Models import from_list
 from eokulapi.Models.Document import Document
+from eokulapi.Models.EokulDictable import EokulDictable
 
 
 @dataclass
-class DocumentContainer:
+class DocumentContainer(EokulDictable):
     """Document container model"""
 
     data: list[Document]
@@ -23,3 +24,12 @@ class DocumentContainer:
         """
         liste = from_list(Document.from_dict, obj.get("TumBelgeler"))
         return cls(liste)
+
+    @classmethod
+    def empty(cls):
+        """Creates an object with empty values
+
+        Returns:
+            DocumentContainer: DocumentContainer object with empty values
+        """
+        return cls([])

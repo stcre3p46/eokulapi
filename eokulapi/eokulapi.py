@@ -2,15 +2,16 @@ import logging
 import random
 import secrets
 from base64 import b64decode
+from typing import TypeVar
 
 import requests
-
 
 from eokulapi.Models.AbsenteeismContainer import AbsenteeismContainer
 from eokulapi.Models.AdditionalExam import AdditionalExam
 from eokulapi.Models.AvgMarkContainer import AvgMarkContainer
 from eokulapi.Models.DocumentContainer import DocumentContainer
 from eokulapi.Models.EndtermMarkContainer import EndtermMarkContainer
+from eokulapi.Models.EokulDictable import EokulDictable
 from eokulapi.Models.EokulStudent import EokulStudent
 from eokulapi.Models.ExamScheduleContainer import ExamScheduleContainer
 from eokulapi.Models.LessonSchedule import LessonSchedule
@@ -23,6 +24,8 @@ logging.basicConfig(
     format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
+
+T = TypeVar("T")
 
 api = "https://e-okul.meb.gov.tr/mobileokulv2"
 """API base URL"""
@@ -184,6 +187,23 @@ class EokulAPI:
         self._update_documents(student)
         self._update_additional_exams(student)
 
+    @staticmethod
+    def __create_object_from_dict(cls: T, resp: requests.Response) -> T:
+        """Creates an object from a response json. The class must be a subclass of `EokulDictable`
+
+        Args:
+            cls (T): Class of the object
+            resp (requests.Response): Response of the API
+
+        Returns:
+            T: Object of the class
+        """
+        if not issubclass(cls, EokulDictable):
+            raise TypeError("Class must be a subclass of EokulDictable")
+        if resp.status_code == requests.codes.not_found:
+            return cls.empty()
+        return cls.from_dict(resp.json())
+
     def _update_marks(self, student: EokulStudent) -> dict:
         """Updates the marks of the student
 
@@ -199,7 +219,7 @@ class EokulAPI:
                 "gid": self.gid,
             },
         )
-        student.marks = MarkContainer.from_dict(resp.json())
+        student.marks = self.__create_object_from_dict(MarkContainer, resp)
         return resp.json()
 
     def _update_absenteeism(self, student: EokulStudent) -> dict:
@@ -217,7 +237,7 @@ class EokulAPI:
                 "gid": self.gid,
             },
         )
-        student.absenteeism = AbsenteeismContainer.from_dict(resp.json())
+        student.absenteeism = self.__create_object_from_dict(AbsenteeismContainer, resp)
         return resp.json()
 
     def _update_lesson_schedule(self, student: EokulStudent) -> dict:
@@ -235,7 +255,7 @@ class EokulAPI:
                 "gid": self.gid,
             },
         )
-        student.lesson_schedule = LessonSchedule.from_dict(resp.json())
+        student.lesson_schedule = self.__create_object_from_dict(LessonSchedule, resp)
         return resp.json()
 
     def _update_exam_schedule(self, student: EokulStudent) -> dict:
@@ -253,7 +273,7 @@ class EokulAPI:
                 "gid": self.gid,
             },
         )
-        student.exam_schedule = ExamScheduleContainer.from_dict(resp.json())
+        student.exam_schedule = self.__create_object_from_dict(ExamScheduleContainer, resp)
         return resp.json()
 
     def _update_class_exam_average(self, student: EokulStudent) -> dict:
@@ -271,7 +291,7 @@ class EokulAPI:
                 "gid": self.gid,
             },
         )
-        student.class_exam_average = AvgMarkContainer.from_dict(resp.json())
+        student.class_exam_average = self.__create_object_from_dict(AvgMarkContainer, resp)
         return resp.json()
 
     def _update_endterm_marks(self, student: EokulStudent) -> dict:
@@ -289,7 +309,7 @@ class EokulAPI:
                 "gid": self.gid,
             },
         )
-        student.endterm_marks = EndtermMarkContainer.from_dict(resp.json())
+        student.endterm_marks = self.__create_object_from_dict(EndtermMarkContainer, resp)
         return resp.json()
 
     def _update_transfer(self, student: EokulStudent) -> dict:
@@ -310,7 +330,7 @@ class EokulAPI:
                 "gid": self.gid,
             },
         )
-        student.transfer = Transfer.from_dict(resp.json())
+        student.transfer = self.__create_object_from_dict(Transfer, resp)
         return resp.json()
 
     def _update_responsibility(self, student: EokulStudent) -> dict:
@@ -330,7 +350,7 @@ class EokulAPI:
                 "gid": self.gid,
             },
         )
-        student.responsibility = Responsibility.from_dict(resp.json())
+        student.responsibility = self.__create_object_from_dict(Responsibility, resp)
         return resp.json()
 
     def _update_documents(self, student: EokulStudent) -> dict:
@@ -348,7 +368,7 @@ class EokulAPI:
                 "gid": self.gid,
             },
         )
-        student.documents = DocumentContainer.from_dict(resp.json())
+        student.documents = self.__create_object_from_dict(DocumentContainer, resp)
         return resp.json()
 
     def _update_additional_exams(self, student: EokulStudent) -> dict:
@@ -367,7 +387,7 @@ class EokulAPI:
                 "sinifNo": str(student.grade),
             },
         )
-        student.additionalexams = AdditionalExam.from_dict(resp.json())
+        student.additionalexams = self.__create_object_from_dict(AdditionalExam, resp)
         return resp.json()
 
     def __student_login(self, tckn: int) -> dict:
@@ -451,6 +471,10 @@ class EokulAPI:
             req = resp.request
             req.headers["Authorization"] = "Bearer " + self.__get_token(student)
             return self.session.send(req)
+
+        if resp.status_code == requests.codes.not_found:
+            # simply ignore in this hook
+            return resp
 
         if resp.status_code != requests.codes.ok or resp.json()["DurumKodu"] != requests.codes.ok:
             raise RuntimeError(
