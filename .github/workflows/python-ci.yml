@@ -57,6 +57,8 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - name: Run tests
+        env:
+          EOKUL_UID: ${{ secrets.EOKUL_UID }}
         run: poetry run pytest
 
   build:
