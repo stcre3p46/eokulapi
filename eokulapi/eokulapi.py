@@ -65,7 +65,7 @@ class EokulAPI:
         self.uid = uid
         self.gid = None
         self.__logger = logging.getLogger(__name__)
-        self.student_dict: dict[str, EokulStudent] = {}
+        self.student_dict: dict[EokulStudent, str] = {}
         self.session = requests.session()
         self.session.hooks = dict(response=self.__hook)
         self._update_student_list()
