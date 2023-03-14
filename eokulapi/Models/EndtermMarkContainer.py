@@ -6,7 +6,7 @@ from eokulapi.Models.EokulDictable import EokulDictable
 
 
 @dataclass
-class EndtermMarkContainer:
+class EndtermMarkContainer(EokulDictable):
     """Endterm mark container model"""
 
     data: list[EndtermMark]
