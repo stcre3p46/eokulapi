@@ -1,8 +1,8 @@
 # eokulapi
-eokul vbs api
+eokul vbs api wrapper for python
 
 ## install
-`pip install eokulapi`
+`pip install eokulapi` or `poetry add eokulapi`
 
 ## usage
 ```python
