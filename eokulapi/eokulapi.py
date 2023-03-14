@@ -54,7 +54,7 @@ routes = {
 class EokulAPI:
     """Eokul API wrapper"""
 
-    def __init__(self, uid: str = "None") -> None:
+    def __init__(self, uid: str = "") -> None:
         """Initiates EokulAPI object
 
         Args:
