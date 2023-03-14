@@ -58,7 +58,7 @@ class EokulAPI:
         """Initiates EokulAPI object
 
         Args:
-            uid (str, optional): uid of the EokulAPI user. Auto generated if not given".
+            uid (str, optional): uid of the EokulAPI user. Auto generated if not given.
         """
         if not uid:
             uid = self.__uid_generator()
