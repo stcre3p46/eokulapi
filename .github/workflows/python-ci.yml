@@ -59,7 +59,7 @@ jobs:
       - name: Run tests
         env:
           EOKUL_UID: ${{ secrets.EOKUL_UID }}
-        run: poetry run pytest --tb=no
+        run: poetry run pytest
 
   build:
     name: Build package
