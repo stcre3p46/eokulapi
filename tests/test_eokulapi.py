@@ -2,7 +2,6 @@
 
 from os import getenv
 
-import pytest
 from dotenv import load_dotenv
 
 from eokulapi.eokulapi import EokulAPI
