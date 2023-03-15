@@ -6,7 +6,7 @@ eokul vbs api wrapper for python
 
 ## usage
 ```python
-from eokulapi.eokulapi import EokulAPI
+from eokulapi import EokulAPI
 
 user=EokulAPI(uid=...)
 st=user.students[0]
