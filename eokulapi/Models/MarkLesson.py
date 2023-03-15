@@ -77,7 +77,9 @@ class MarkLesson:
 
         string = ""
 
-        string += self.lesson.replace("I", "ı").lower()  # to deal with Turkish characters
+        string += self.lesson.replace(
+            "I", "ı"
+        ).lower()  # to deal with Turkish characters
 
         string += " "
 
@@ -158,4 +160,6 @@ class MarkLesson:
             if dat:
                 yazili[i] = str_to_float(dat)
 
-        return cls(ders, ders_kodu, ders_saati, donem, muaf, odv, tpu, puan, sozlu, yazili)
+        return cls(
+            ders, ders_kodu, ders_saati, donem, muaf, odv, tpu, puan, sozlu, yazili
+        )

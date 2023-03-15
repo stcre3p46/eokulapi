@@ -35,9 +35,12 @@ def test_get_student_grades():
 
 def test_get_student_class():
     import re
+
     api = EokulAPI(uid)
     student = api.students[0]
-    assert re.match(r"^\d{1,2}\.Sınıf$", student.class_), "Student class is not what expected"
+    assert re.match(
+        r"^\d{1,2}\.Sınıf$", student.class_
+    ), "Student class is not what expected"
 
 
 def test_get_student_tckn():
@@ -57,17 +60,22 @@ def test_get_student_tckn():
     ) % 10
 
     assert chksum == int(stckn[9]), "TCKN is not valid"
-    assert (sum([int(stckn[i]) for i in range(10)]) % 10) == int(stckn[10]), "TCKN is not valid"
+    assert (sum([int(stckn[i]) for i in range(10)]) % 10) == int(
+        stckn[10]
+    ), "TCKN is not valid"
+
 
 def test_get_student_photo():
     api = EokulAPI(uid)
     student = api.students[0]
     assert student.photo, "Student photo is empty"
 
+
 def test_update_student_data():
     api = EokulAPI(uid)
     student = api.students[0]
     api.update_student_data(student)
+
 
 def test_get_student_endterm_marks():
     api = EokulAPI(uid)
@@ -76,5 +84,9 @@ def test_get_student_endterm_marks():
     api._update_endterm_marks(student)
 
     assert student.endterm_marks.data, "Student's endterm marks is empty"
-    assert student.endterm_marks.data[0].academic_year, "Student's 1st endterm mark academic year is empty"
-    assert student.endterm_marks.data[0].endterm_mark, "Student's 1st endterm mark is empty"
+    assert student.endterm_marks.data[
+        0
+    ].academic_year, "Student's 1st endterm mark academic year is empty"
+    assert student.endterm_marks.data[
+        0
+    ].endterm_mark, "Student's 1st endterm mark is empty"

@@ -160,7 +160,9 @@ class EokulAPI:
             str: Token of the student
             "": If the student is not found
         """
-        token_list = [token for tckn, (st, token) in self.student_dict.items() if st == student]
+        token_list = [
+            token for tckn, (st, token) in self.student_dict.items() if st == student
+        ]
         if len(token_list) == 1:
             return token_list[0]
         return ""
@@ -273,7 +275,9 @@ class EokulAPI:
                 "gid": self.gid,
             },
         )
-        student.exam_schedule = self.__create_object_from_dict(ExamScheduleContainer, resp)
+        student.exam_schedule = self.__create_object_from_dict(
+            ExamScheduleContainer, resp
+        )
         return resp.json()
 
     def _update_class_exam_average(self, student: EokulStudent) -> dict:
@@ -291,7 +295,9 @@ class EokulAPI:
                 "gid": self.gid,
             },
         )
-        student.class_exam_average = self.__create_object_from_dict(AvgMarkContainer, resp)
+        student.class_exam_average = self.__create_object_from_dict(
+            AvgMarkContainer, resp
+        )
         return resp.json()
 
     def _update_endterm_marks(self, student: EokulStudent) -> dict:
@@ -309,7 +315,9 @@ class EokulAPI:
                 "gid": self.gid,
             },
         )
-        student.endterm_marks = self.__create_object_from_dict(EndtermMarkContainer, resp)
+        student.endterm_marks = self.__create_object_from_dict(
+            EndtermMarkContainer, resp
+        )
         return resp.json()
 
     def _update_transfer(self, student: EokulStudent) -> dict:
@@ -476,7 +484,10 @@ class EokulAPI:
             # simply ignore in this hook
             return resp
 
-        if resp.status_code != requests.codes.ok or resp.json()["DurumKodu"] != requests.codes.ok:
+        if (
+            resp.status_code != requests.codes.ok
+            or resp.json()["DurumKodu"] != requests.codes.ok
+        ):
             raise RuntimeError(
                 f"""unexpected response {resp}: {resp.json()} at url {resp.request.url} with request headers {resp.request.headers}"""
             )

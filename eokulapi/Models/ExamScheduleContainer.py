@@ -40,8 +40,12 @@ class ExamScheduleContainer(EokulDictable):
         Returns:
             ExamScheduleContainer: ExamScheduleContainer object that is converted from dict
         """
-        schedule_list = from_list(ExamSchedule.from_dict, obj.get("SinavTarihleriListesi"))
-        schedule_list = list(filter(lambda item: item is not None, _flatten(schedule_list)))
+        schedule_list = from_list(
+            ExamSchedule.from_dict, obj.get("SinavTarihleriListesi")
+        )
+        schedule_list = list(
+            filter(lambda item: item is not None, _flatten(schedule_list))
+        )
 
         return cls(schedule_list)
 

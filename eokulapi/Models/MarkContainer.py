@@ -25,9 +25,9 @@ class MarkContainer(EokulDictable):
             MarkContainer: MarkContainer object that is converted from dict
         """
         liste = from_list(MarkLesson.from_dict, obj.get("notListesi"))
-        ort = sum([lesson.lesson_weekly_period * lesson.score for lesson in liste]) / sum(
-            [lesson.lesson_weekly_period for lesson in liste]
-        )
+        ort = sum(
+            [lesson.lesson_weekly_period * lesson.score for lesson in liste]
+        ) / sum([lesson.lesson_weekly_period for lesson in liste])
 
         return cls(ort, liste)
 
