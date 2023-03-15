@@ -4,7 +4,7 @@ from os import getenv
 
 from dotenv import load_dotenv
 
-from eokulapi.eokulapi import EokulAPI
+from eokulapi import EokulAPI
 
 load_dotenv()
 
