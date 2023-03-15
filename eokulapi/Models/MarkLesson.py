@@ -92,7 +92,7 @@ class MarkLesson:
             if 1 <= mark_no <= 5:
                 string += f"{mark_no}. yazılı"
             elif mark_no == 6:
-                string += "Ortak yazılı"
+                string += "ortak yazılı"
         else:  # sozlu
             if 1 <= mark_no <= 3:
                 string += f"{mark_no}. performans"
