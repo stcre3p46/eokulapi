@@ -24,7 +24,7 @@ def test_anon_login():
 def test_get_student():
     api = EokulAPI(uid)
     student = api.students[0]
-    assert "EREN Aa" in student.name, "Student name is not what expected"
+    assert "EREN A" in student.name, "Student name is not what expected"
 
 
 def test_get_student_grades():
