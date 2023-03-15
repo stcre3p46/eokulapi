@@ -26,6 +26,13 @@ def test_get_student():
     student = api.students[0]
     assert "EREN A" in student.name, "Student name is not what expected"
 
+def test_update_student_token():
+    api = EokulAPI(uid)
+    student = api.students[0]
+    prev = student.endterm_marks
+    api.student_dict[student.tckn] = (student, "dummy")
+    api._update_endterm_marks(student)
+    assert prev != student.endterm_marks, "Student token is not updated properly"
 
 def test_get_student_grades():
     api = EokulAPI(uid)
