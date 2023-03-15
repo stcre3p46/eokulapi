@@ -68,7 +68,6 @@ def test_update_student_data():
     api = EokulAPI(uid)
     student = api.students[0]
     api.update_student_data(student)
-    assert True
 
 def test_get_student_endterm_marks():
     api = EokulAPI(uid)
