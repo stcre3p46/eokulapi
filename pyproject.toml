@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "eokulapi"
-version = "0.0.10"
+version = "0.0.11"
 description = "eokul vbs api wrapper for python"
 authors = ["insanolanbiri <erenakgun2007@hotmail.com>"]
 license = "GPL-3.0-only"
