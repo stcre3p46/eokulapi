@@ -61,8 +61,8 @@ jobs:
           EOKUL_UID: ${{ secrets.EOKUL_UID }}
         run: poetry run pytest
 
-  build:
-    name: Build package
+  publish:
+    name: Build and publish package
 
     needs:
       - compile
@@ -102,30 +102,16 @@ jobs:
       - name: Build package
         run: poetry build --no-interaction
 
-      - name: Upload package
+      - name: Upload package as artifact
         uses: actions/upload-artifact@v3
         with:
           name: dist
           path: dist
 
-  release:
-    name: Release package
-    
-    needs: build
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download package
-        uses: actions/download-artifact@v3
-        with:
-          name: dist
-          path: dist
-
       - name: Publish package on PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
+        env:
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_API_TOKEN }}
+        run: poetry publish --no-interaction
 
       - name: Publish package on GitHub
         uses: softprops/action-gh-release@v1
