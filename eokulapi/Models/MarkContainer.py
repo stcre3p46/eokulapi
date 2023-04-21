@@ -9,8 +9,11 @@ from eokulapi.Models.MarkLesson import MarkLesson
 class MarkContainer(EokulDictable):
     """Mark container model"""
 
-    avg: float | None
-    """Average mark of the student"""
+    avg: dict[int, float]
+    """Average mark of the student.
+
+    Key is the semester number and value is the average mark of the semester."""
+
     data: list[MarkLesson]
     """Mark data as list of MarkLesson objects"""
 
@@ -24,11 +27,22 @@ class MarkContainer(EokulDictable):
         Returns:
             MarkContainer: MarkContainer object that is converted from dict
         """
+        from itertools import groupby
         liste = from_list(MarkLesson.from_dict, obj.get("notListesi"))
-        ort = sum(
-            [lesson.lesson_weekly_period * lesson.score for lesson in liste]
-        ) / sum([lesson.lesson_weekly_period for lesson in liste])
 
+        by_term = groupby(liste, lambda x: x.term)
+        
+        ort = {}
+
+        for term, lessons in by_term:
+            print(lessons)
+            lessons = list(lessons)
+            print(lessons)
+            ort[term] = sum(
+                [lesson.lesson_weekly_period * lesson.score for lesson in lessons]
+            ) / sum([lesson.lesson_weekly_period for lesson in lessons])
+            print(ort[term])
+        
         return cls(ort, liste)
 
     @classmethod
