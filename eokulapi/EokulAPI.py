@@ -19,12 +19,6 @@ from eokulapi.Models.MarkContainer import MarkContainer
 from eokulapi.Models.Responsibility import Responsibility
 from eokulapi.Models.Transfer import Transfer
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
-
 T = TypeVar("T")
 
 api = "https://e-okul.meb.gov.tr/mobileokulv2"
