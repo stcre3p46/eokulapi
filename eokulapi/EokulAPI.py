@@ -457,6 +457,12 @@ class EokulAPI:
 
     def __hook(self, resp: requests.Response, *args, **kwargs):
         """Hook for the requests that handles token refresh actions and errors"""
+        self.__logger.debug(resp.status_code)
+        self.__logger.debug(resp.request.headers)
+        self.__logger.debug("begin response")
+        self.__logger.debug(resp.text)
+        self.__logger.debug("end response")
+
         if resp.status_code == requests.codes.unauthorized or (
             "ExceptionMessage" in resp.json()
             and resp.json()["ExceptionMessage"]
