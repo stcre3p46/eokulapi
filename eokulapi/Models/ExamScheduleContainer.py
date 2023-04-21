@@ -1,3 +1,5 @@
+"""Module for ExamScheduleContainer model."""
+
 from dataclasses import dataclass
 from typing import Iterable
 
@@ -7,7 +9,7 @@ from eokulapi.Models.ExamSchedule import ExamSchedule
 
 
 def _flatten(lis: Iterable):
-    """Flattens a list of lists into a single list
+    """Flattens a list of lists into a single list.
 
     Args:
         lis (Iterable): List to be flattened
@@ -25,14 +27,14 @@ def _flatten(lis: Iterable):
 
 @dataclass
 class ExamScheduleContainer(EokulDictable):
-    """Exam schedule container model"""
+    """Exam schedule container model."""
 
     data: list[ExamSchedule]
     """Exam schedule data as list of ExamSchedule objects"""
 
     @classmethod
     def from_dict(cls, obj: dict):
-        """Converts a dict to ExamScheduleContainer object
+        """Convert a dict to ExamScheduleContainer object.
 
         Args:
             obj (dict): Object to be converted
@@ -51,7 +53,7 @@ class ExamScheduleContainer(EokulDictable):
 
     @classmethod
     def empty(cls):
-        """Creates an object with empty values
+        """Create an object with empty values.
 
         Returns:
             ExamScheduleContainer: ExamScheduleContainer object with empty values

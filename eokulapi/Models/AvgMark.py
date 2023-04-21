@@ -1,3 +1,5 @@
+"""Module for AvgMark model."""
+
 from dataclasses import dataclass
 
 from eokulapi.Models import from_int, str_to_float
@@ -17,7 +19,7 @@ NONE_AVG = 0
 
 @dataclass
 class AvgMark:
-    """Average mark model"""
+    """Average mark model."""
 
     avg_mark: float | None
     """Average mark of the class"""
@@ -30,7 +32,7 @@ class AvgMark:
 
     @classmethod
     def from_dict(cls, obj: dict):
-        """Converts a dict to AvgMark object
+        """Convert a dict to AvgMark object.
 
         Args:
             obj (dict): Object to be converted
@@ -38,7 +40,6 @@ class AvgMark:
         Returns:
             AvgMark: AvgMark object that is converted from dict
         """
-
         string_val = obj.get("value")
 
         if string_val is None:

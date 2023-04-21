@@ -1,3 +1,5 @@
+"""Module for EndtermMark model."""
+
 from dataclasses import dataclass
 
 from eokulapi.Models import from_str, str_to_float
@@ -5,7 +7,7 @@ from eokulapi.Models import from_str, str_to_float
 
 @dataclass
 class EndtermMark:
-    """Endterm mark model"""
+    """Endterm mark model."""
 
     academic_year: str
     """Academic year of the mark"""
@@ -16,7 +18,7 @@ class EndtermMark:
 
     @classmethod
     def from_dict(cls, obj: dict):
-        """Converts a dict to EndtermMark object
+        """Convert a dict to EndtermMark object.
 
         Args:
             obj (dict): Object to be converted

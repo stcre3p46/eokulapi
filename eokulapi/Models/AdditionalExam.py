@@ -1,3 +1,5 @@
+"""Module for AdditionalExam model."""
+
 from dataclasses import dataclass
 
 from eokulapi.Models import from_list, from_str
@@ -6,7 +8,7 @@ from eokulapi.Models.EokulDictable import EokulDictable
 
 @dataclass
 class AdditionalExam(EokulDictable):
-    """Additional exam model"""
+    """Additional exam model."""
 
     name: str | None
     """Name of the additional exam"""
@@ -21,7 +23,7 @@ class AdditionalExam(EokulDictable):
 
     @classmethod
     def from_dict(cls, obj: dict):
-        """Converts a dict to AdditionalExam object
+        """Convert a dict to AdditionalExam object.
 
         Args:
             obj (dict): Object to be converted
@@ -37,7 +39,7 @@ class AdditionalExam(EokulDictable):
 
     @classmethod
     def empty(cls):
-        """Creates an object with empty values
+        """Create an object with empty values.
 
         Returns:
             AdditionalExam: AdditionalExam object with empty values

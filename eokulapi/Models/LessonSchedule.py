@@ -1,3 +1,5 @@
+"""Module for LessonSchedule model."""
+
 from dataclasses import dataclass
 
 from eokulapi.Models import from_list
@@ -7,14 +9,14 @@ from eokulapi.Models.LessonDay import LessonDay
 
 @dataclass
 class LessonSchedule(EokulDictable):
-    """Lesson schedule model"""
+    """Lesson schedule model."""
 
     data: list[LessonDay]
     """Lesson schedule data as list of LessonDay objects"""
 
     @classmethod
     def from_dict(cls, obj: dict):
-        """Converts a dict to LessonSchedule object
+        """Convert a dict to LessonSchedule object.
 
         Args:
             obj (dict): Object to be converted
@@ -27,7 +29,7 @@ class LessonSchedule(EokulDictable):
 
     @classmethod
     def empty(cls):
-        """Creates an object with empty values
+        """Create an object with empty values.
 
         Returns:
             LessonSchedule: LessonSchedule object with empty values

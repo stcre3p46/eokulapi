@@ -1,3 +1,5 @@
+"""Module for Absenteeism model."""
+
 from dataclasses import dataclass
 from datetime import date
 
@@ -6,7 +8,7 @@ from eokulapi.Models import from_float, from_str, month_to_int, str_to_date
 
 @dataclass
 class Absenteeism:
-    """Absenteeism model"""
+    """Absenteeism model."""
 
     date: date
     """Date of the absence"""
@@ -17,7 +19,7 @@ class Absenteeism:
 
     @classmethod
     def from_dict(cls, obj: dict):
-        """Converts a dict to Absenteeism object
+        """Convert a dict to Absenteeism object.
 
         Args:
             obj (dict): Object to be converted

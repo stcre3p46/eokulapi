@@ -1,3 +1,5 @@
+"""eokul vbs api wrapper."""
+
 import logging
 import random
 import secrets
@@ -49,10 +51,10 @@ routes = {
 
 
 class EokulAPI:
-    """Eokul API wrapper"""
+    """Eokul API wrapper."""
 
     def __init__(self, uid: str = "") -> None:
-        """Initiates EokulAPI object
+        """Initiate EokulAPI object.
 
         Args:
             uid (str, optional): uid of the EokulAPI user. Auto generated if not given.
@@ -68,7 +70,7 @@ class EokulAPI:
         self._update_student_list()
 
     def __register(self) -> dict:
-        """Registers the user to the API"""
+        """Register the user to the API."""
         resp = self.session.post(
             url=api + routes["register"],
             headers=self.__header_generator(),
@@ -86,7 +88,7 @@ class EokulAPI:
     def add_student(
         self, tckn: str, okulno: int, seri: str = "", cilt: str = "", aile: str = ""
     ) -> None:
-        """Adds a student to the user
+        """Add a student to the user.
 
         Args:
             tckn (str): Turkish Citizen ID Number of the student
@@ -127,7 +129,7 @@ class EokulAPI:
         self._update_student_list()
 
     def _update_student_list(self) -> None:
-        """Updates the student list"""
+        """Update the student list."""
         data = self.__register()
         self.student_dict.clear()
         for student in data["OgrenciListesi"]:
@@ -145,7 +147,7 @@ class EokulAPI:
             )
 
     def __get_token(self, student: EokulStudent) -> str:
-        """Gets the token of the student
+        """Get the token of the student.
 
         Args:
             student (EokulStudent): Student object
@@ -163,11 +165,11 @@ class EokulAPI:
 
     @property
     def students(self) -> list[EokulStudent]:
-        """List of the students"""
+        """List of the students."""
         return [st for tckn, (st, token) in self.student_dict.items()]
 
     def update_student_data(self, student: EokulStudent) -> None:
-        """Updates all the data of the student
+        """Update all the data of the student.
 
         Args:
             student (EokulStudent): Student object to update
@@ -185,7 +187,9 @@ class EokulAPI:
 
     @staticmethod
     def __create_object_from_dict(cls: T, resp: requests.Response) -> T:
-        """Creates an object from a response json. The class must be a subclass of `EokulDictable`
+        """Create an object from a response json.
+
+        The class must be a subclass of `EokulDictable`
 
         Args:
             cls (T): Class of the object
@@ -201,7 +205,7 @@ class EokulAPI:
         return cls.from_dict(resp.json())
 
     def _update_marks(self, student: EokulStudent) -> dict:
-        """Updates the marks of the student
+        """Update the marks of the student.
 
         Args:
             student (EokulStudent): Student object to update
@@ -219,7 +223,7 @@ class EokulAPI:
         return resp.json()
 
     def _update_absenteeism(self, student: EokulStudent) -> dict:
-        """Updates the absenteeism information of the student
+        """Update the absenteeism information of the student.
 
         Args:
             student (EokulStudent): Student object to update
@@ -237,7 +241,7 @@ class EokulAPI:
         return resp.json()
 
     def _update_lesson_schedule(self, student: EokulStudent) -> dict:
-        """Updates the lesson schedule of the student
+        """Update the lesson schedule of the student.
 
         Args:
             student (EokulStudent): Student object to update
@@ -255,7 +259,7 @@ class EokulAPI:
         return resp.json()
 
     def _update_exam_schedule(self, student: EokulStudent) -> dict:
-        """Updates the exam schedule of the student
+        """Update the exam schedule of the student.
 
         Args:
             student (EokulStudent): Student object to update
@@ -275,7 +279,7 @@ class EokulAPI:
         return resp.json()
 
     def _update_class_exam_average(self, student: EokulStudent) -> dict:
-        """Updates the class exam average of the student
+        """Update the class exam average of the student.
 
         Args:
             student (EokulStudent): Student object to update
@@ -295,7 +299,7 @@ class EokulAPI:
         return resp.json()
 
     def _update_endterm_marks(self, student: EokulStudent) -> dict:
-        """Updates the endterm marks of the student
+        """Update the endterm marks of the student.
 
         Args:
             student (EokulStudent): Student object to update
@@ -315,12 +319,11 @@ class EokulAPI:
         return resp.json()
 
     def _update_transfer(self, student: EokulStudent) -> dict:
-        """Not implemented method that updates the transfer information of the student
+        """Not implemented method that updates the transfer information of the student.
 
         Args:
             student (EokulStudent): Student object to update
         """
-
         self.__logger.debug("%s is not implemented", "transfer")
         return {"error": "not implemented"}
         resp = self.session.post(
@@ -336,7 +339,7 @@ class EokulAPI:
         return resp.json()
 
     def _update_responsibility(self, student: EokulStudent) -> dict:
-        """Not implemented method that updates the responsibility information of the student
+        """Not implemented method that updates the responsibility information of the student.
 
         Args:
             student (EokulStudent): Student object to update
@@ -356,7 +359,7 @@ class EokulAPI:
         return resp.json()
 
     def _update_documents(self, student: EokulStudent) -> dict:
-        """Updates the documents of the student
+        """Update the documents of the student.
 
         Args:
             student (EokulStudent): Student object to update
@@ -374,7 +377,7 @@ class EokulAPI:
         return resp.json()
 
     def _update_additional_exams(self, student: EokulStudent) -> dict:
-        """Updates the additional exams of the student
+        """Update the additional exams of the student.
 
         Args:
             student (EokulStudent): Student object to update
@@ -393,7 +396,7 @@ class EokulAPI:
         return resp.json()
 
     def __student_login(self, tckn: int) -> dict:
-        """Logs in the student with the given Identity Number
+        """Log in the student with the given Identity Number.
 
         Args:
             tckn (int): Identity Number of the student
@@ -401,7 +404,6 @@ class EokulAPI:
         Returns:
             dict: Response of the login request that contains the student token
         """
-
         resp = self.session.post(
             url=api + routes["login_student"],
             headers=self.__header_generator(),
@@ -416,7 +418,7 @@ class EokulAPI:
         return resp.json()
 
     def __pushid_generator(self) -> str:
-        """Not implemented method that is supposed to generate a pushid
+        """Not implemented method that is supposed to generate a pushid.
 
         Returns:
             str: Pushid
@@ -425,7 +427,7 @@ class EokulAPI:
 
     @staticmethod
     def __header_generator(bearer: str = "") -> dict[str, str]:
-        """Generates the headers for the requests
+        """Generate the headers for the requests.
 
         Args:
             bearer (str, optional): Bearer token for the request. Defaults to "".
@@ -446,7 +448,7 @@ class EokulAPI:
 
     @staticmethod
     def __uid_generator() -> str:
-        """Generates a random uid
+        """Generate a random uid.
 
         Returns:
             str: uid
@@ -456,7 +458,16 @@ class EokulAPI:
         return uid
 
     def __hook(self, resp: requests.Response, *args, **kwargs):
-        """Hook for the requests that handles token refresh actions and errors"""
+        """Handle the response of the requests.
+
+        This method logs the response of the requests and refreshes the student token if it is expired.
+
+        Args:
+            resp (requests.Response): Response of the request
+
+        Raises:
+            RuntimeError: If the response is not what expected
+        """
         self.__logger.debug(resp.status_code)
         self.__logger.debug(resp.request.headers)
         self.__logger.debug("begin response")

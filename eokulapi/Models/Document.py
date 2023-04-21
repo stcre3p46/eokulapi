@@ -1,3 +1,5 @@
+"""Module for Document model."""
+
 from dataclasses import dataclass
 
 from eokulapi.Models import from_str
@@ -5,7 +7,7 @@ from eokulapi.Models import from_str
 
 @dataclass
 class Document:
-    """Document model"""
+    """Document model."""
 
     doc_type: str
     """Type of the document"""
@@ -16,7 +18,7 @@ class Document:
 
     @classmethod
     def from_dict(cls, obj: dict):
-        """Converts a dict to Document object
+        """Convert a dict to Document object.
 
         Args:
             obj (dict): Object to be converted

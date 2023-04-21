@@ -1,3 +1,5 @@
+"""Module for AvgMarkContainer model."""
+
 from dataclasses import dataclass
 
 from eokulapi.Models import from_list
@@ -7,14 +9,14 @@ from eokulapi.Models.EokulDictable import EokulDictable
 
 @dataclass
 class AvgMarkContainer(EokulDictable):
-    """Average mark container model"""
+    """Average mark container model."""
 
     data: list[AvgMarkLesson]
     """Average mark data as list of AvgMarkLesson objects"""
 
     @classmethod
     def from_dict(cls, obj: dict):
-        """Converts a dict to AvgMarkContainer object
+        """Convert a dict to AvgMarkContainer object.
 
         Args:
             obj (dict): Object to be converted
@@ -27,7 +29,7 @@ class AvgMarkContainer(EokulDictable):
 
     @classmethod
     def empty(cls):
-        """Creates an object with empty values
+        """Create an object with empty values.
 
         Returns:
             AvgMarkContainer: AvgMarkContainer object with empty values

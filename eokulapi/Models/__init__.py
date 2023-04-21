@@ -1,3 +1,5 @@
+"""This module contains the models of the eokulapi package."""
+
 from datetime import date, time
 from typing import Any, Callable, TypeVar
 
@@ -5,7 +7,7 @@ T = TypeVar("T")
 
 
 def from_none(x: Any) -> None:
-    """Get from a None object
+    """Get from a None object.
 
     Args:
         x (Any): Object to get its value
@@ -21,7 +23,7 @@ def from_none(x: Any) -> None:
 
 
 def from_str(x: Any) -> str:
-    """Get from a string object
+    """Get from a string object.
 
     Args:
         x (Any): Object to get its value
@@ -37,7 +39,7 @@ def from_str(x: Any) -> str:
 
 
 def from_bool(x: Any) -> bool:
-    """Get from a boolean object
+    """Get from a boolean object.
 
     Args:
         x (Any): Object to get its value
@@ -53,7 +55,7 @@ def from_bool(x: Any) -> bool:
 
 
 def from_int(x: Any) -> int:
-    """Get from an integer object
+    """Get from an integer object.
 
     Args:
         x (Any): Object to get its value
@@ -69,7 +71,7 @@ def from_int(x: Any) -> int:
 
 
 def from_float(x: Any) -> float:
-    """Get from a float object
+    """Get from a float object.
 
     Args:
         x (Any): Object to get its value
@@ -85,7 +87,7 @@ def from_float(x: Any) -> float:
 
 
 def from_union(fs, x):
-    """Get from a object that can be given as argument to any of the given functions
+    """Get from a object that can be given as argument to any of the given functions.
 
     Args:
         fs (list[Callable[[Any], T]]): List of functions to get the object
@@ -106,7 +108,7 @@ def from_union(fs, x):
 
 
 def from_list(f: Callable[[Any], T], x: Any) -> list[T]:
-    """Get from a list object such that its elements can be given as argument to the given function
+    """Get from a list object such that its elements can be given as argument to the given function.
 
     Args:
         f (Callable[[Any], T]): Function to handle the list elements
@@ -123,7 +125,7 @@ def from_list(f: Callable[[Any], T], x: Any) -> list[T]:
 
 
 def str_to_time(string: Any) -> time:
-    """Converts a string in the "HH:MM" format to time object
+    """Convert a string in the "HH:MM" format to time object.
 
     Args:
         string (Any): String to convert
@@ -137,7 +139,7 @@ def str_to_time(string: Any) -> time:
 
 
 def str_to_date(string: Any) -> date:
-    """Converts a string in the "DD;MM;YYYY" format of to date object
+    """Convert a string in the "DD;MM;YYYY" format of to date object.
 
     Args:
         string (Any): String to convert
@@ -151,7 +153,7 @@ def str_to_date(string: Any) -> date:
 
 
 def str_to_float(string: Any) -> float | None:
-    """Converts a string to float object
+    """Convert a string to float object.
 
     Args:
         string (Any): String to convert
@@ -168,7 +170,7 @@ def str_to_float(string: Any) -> float | None:
 
 
 def month_to_int(month: Any) -> int:
-    """Converts a month string to integer
+    """Convert a month string to integer.
 
     Args:
         month (Any): Month string to convert
@@ -209,7 +211,7 @@ def month_to_int(month: Any) -> int:
 
 
 def day_to_int(day: Any) -> int:
-    """Converts a day string to integer
+    """Convert a day string to integer.
 
     Args:
         day (Any): Day string to convert

@@ -1,3 +1,5 @@
+"""Module for ExamSchedule model."""
+
 from dataclasses import dataclass
 from datetime import date
 from typing import Union
@@ -7,7 +9,7 @@ from eokulapi.Models import from_int, from_str, month_to_int, str_to_date
 
 @dataclass
 class ExamSchedule:
-    """Exam schedule model"""
+    """Exam schedule model."""
 
     isPast: bool
     """Whether the exam is past or not"""
@@ -18,7 +20,7 @@ class ExamSchedule:
 
     @classmethod
     def from_dict(cls, obj: dict) -> Union["ExamSchedule", list["ExamSchedule"], None]:
-        """Converts a dict to ExamSchedule object
+        """Convert a dict to ExamSchedule object.
 
         Args:
             obj (dict): Object to be converted

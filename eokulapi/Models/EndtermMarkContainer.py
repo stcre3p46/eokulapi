@@ -1,3 +1,5 @@
+"""Module for EndtermMarkContainer model."""
+
 from dataclasses import dataclass
 
 from eokulapi.Models import from_list
@@ -7,14 +9,14 @@ from eokulapi.Models.EokulDictable import EokulDictable
 
 @dataclass
 class EndtermMarkContainer(EokulDictable):
-    """Endterm mark container model"""
+    """Endterm mark container model."""
 
     data: list[EndtermMark]
     """Endterm mark data as list of EndtermMark objects"""
 
     @classmethod
     def from_dict(cls, obj: dict):
-        """Converts a dict to EndtermMarkContainer object
+        """Convert a dict to EndtermMarkContainer object.
 
         Args:
             obj (dict): Object to be converted
@@ -28,7 +30,7 @@ class EndtermMarkContainer(EokulDictable):
 
     @classmethod
     def empty(cls):
-        """Creates an object with empty values
+        """Create an object with empty values.
 
         Returns:
             EndtermMarkContainer: EndtermMarkContainer object with empty values

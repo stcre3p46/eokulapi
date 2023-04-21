@@ -1,3 +1,5 @@
+"""Module for MarkLesson model."""
+
 from dataclasses import dataclass
 from typing import Any
 
@@ -7,11 +9,12 @@ from eokulapi.Models.AvgMarkLesson import AvgMarkLesson
 
 @dataclass
 class MarkLesson:
-    """Mark lesson model
+    """Mark lesson model.
 
     Note that each MarkLesson object only contains one term data.
     Using lesson_id as a primary key among MarkLesson objects is not recommended.
-    Use a combination of lesson_id and term instead."""
+    Use a combination of lesson_id and term instead.
+    """
 
     lesson: str
     """Name of the lesson"""
@@ -21,7 +24,7 @@ class MarkLesson:
     """Weekly period count of the lesson"""
     term: int
     """Term of the lesson
-    
+
     it is even for the first term and odd for the second term"""
     isExempt: bool
     """Whether the student is exempt from the lesson"""
@@ -33,7 +36,7 @@ class MarkLesson:
     """Score of the student in the lesson"""
     sozlu: dict[int, float]
     """Dict of `sözlü` exam scores (Exam Number: Score)
-    
+
     Dict keys are from 1 to 6, but not all of them are present as `sozlu`:
     1: `performans1`
     2: `performans2`
@@ -42,11 +45,11 @@ class MarkLesson:
     5: `uygulama2`
     6: `uygulama3`
     mark_to_str() method can be used to convert the keys to string representations of the marks.
-    
+
     Note that all of the keys are *not* present in all of the lessons."""
     yazili: dict[int, float]
     """Dict of `yazılı` exam scores (Exam Number: Score)
-    
+
     Dict keys are from 1 to 6, but not all of them are present as `yazili`:
     1: `sınav1`
     2: `sınav2`
@@ -55,11 +58,11 @@ class MarkLesson:
     5: `sınav5`
     6: `ortak_sınav`
     mark_to_str() method can be used to convert the keys to string representations of the marks.
-    
+
     Note that all of the keys are *not* present in all of the lessons."""
 
     def mark_to_str(self, mark_type: bool, mark_no: int) -> str:
-        """Converts a mark number to a string representation of the mark
+        """Convert a mark number to a string representation of the mark.
 
         Args:
             mark_type (bool): Whether the mark is `yazili` or `sozlu`.
@@ -71,7 +74,6 @@ class MarkLesson:
         Returns:
             str: String representation of the mark (e.g. `matematik 1. dönem 2. yazılı`)
         """
-
         assert mark_type in [True, False]
         assert mark_no in range(1, 7)
 
@@ -104,7 +106,7 @@ class MarkLesson:
         return string
 
     def isMarkOfSelf(self, object: object) -> bool:
-        """Checks whether the object is a mark object for self
+        """Check whether the object is a mark object for self.
 
         Args:
             o (object): Object to check
@@ -117,7 +119,7 @@ class MarkLesson:
         return False
 
     def isAvgmarkOfSelf(self, object: object) -> bool:
-        """Checks whether the object is an average mark object for self
+        """Check whether the object is an average mark object for self.
 
         Args:
             o (object): Object to check
@@ -131,7 +133,7 @@ class MarkLesson:
 
     @classmethod
     def from_dict(cls, obj: dict):
-        """Converts a dict to MarkLesson object
+        """Convert a dict to MarkLesson object.
 
         Args:
             obj (dict): Object to be converted

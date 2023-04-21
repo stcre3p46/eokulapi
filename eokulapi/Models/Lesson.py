@@ -1,3 +1,5 @@
+"""Module for Lesson model."""
+
 from dataclasses import dataclass
 from datetime import time
 from typing import Optional
@@ -7,7 +9,7 @@ from eokulapi.Models import from_int, from_none, from_str, from_union, str_to_ti
 
 @dataclass
 class Lesson:
-    """Lesson model to represent a lesson in a day"""
+    """Lesson model to represent a lesson in a day."""
 
     start: time
     """Start time of the lesson"""
@@ -22,7 +24,7 @@ class Lesson:
 
     @classmethod
     def from_dict(cls, obj: dict):
-        """Converts a dict to Lesson object
+        """Convert a dict to Lesson object.
 
         Args:
             obj (dict): Object to be converted

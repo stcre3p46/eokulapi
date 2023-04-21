@@ -1,3 +1,5 @@
+"""Module for AvgMarkLesson model."""
+
 from dataclasses import dataclass
 
 from eokulapi.Models import from_int, from_str
@@ -6,20 +8,20 @@ from eokulapi.Models.AvgMark import AvgMark
 
 @dataclass
 class AvgMarkLesson:
-    """Average mark lesson model"""
+    """Average mark lesson model."""
 
     lesson_name: str
     """Name of the lesson"""
     term: int
     """Term of the lesson
-    
+
     it is even for the first term and odd for the second term"""
     marks: dict[int, AvgMark]
     """Marks of the lesson as dict of AvgMark objects (Exam Number: AvgMark)"""
 
     @classmethod
     def from_dict(cls, obj: dict):
-        """Converts a dict to AvgMarkLesson object
+        """Convert a dict to AvgMarkLesson object.
 
         Args:
             obj (dict): Object to be converted

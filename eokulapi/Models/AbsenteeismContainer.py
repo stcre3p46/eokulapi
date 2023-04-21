@@ -1,3 +1,5 @@
+"""Module for AbsenteeismContainer model."""
+
 from dataclasses import dataclass
 
 from eokulapi.Models import from_float, from_list, from_str, month_to_int, str_to_float
@@ -7,7 +9,7 @@ from eokulapi.Models.EokulDictable import EokulDictable
 
 @dataclass
 class AbsenteeismContainer(EokulDictable):
-    """Absenteeism container model"""
+    """Absenteeism container model."""
 
     excused_count: float
     """Excused absence count"""
@@ -20,7 +22,7 @@ class AbsenteeismContainer(EokulDictable):
 
     @classmethod
     def from_dict(cls, obj: dict):
-        """Converts a dict to AbsenteeismContainer object
+        """Convert a dict to AbsenteeismContainer object.
 
         Args:
             obj (dict): Object to be converted
@@ -43,7 +45,7 @@ class AbsenteeismContainer(EokulDictable):
 
     @classmethod
     def empty(cls):
-        """Creates an object with empty values
+        """Create an object with empty values.
 
         Returns:
             AbsenteeismContainer: AbsenteeismContainer object with empty values

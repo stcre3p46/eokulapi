@@ -1,3 +1,5 @@
+"""Module for EokulStudent model."""
+
 from dataclasses import dataclass
 from typing import Optional
 
@@ -15,7 +17,7 @@ from eokulapi.Models.Transfer import Transfer
 
 @dataclass
 class EokulStudent:
-    """Eokul student model"""
+    """Eokul student model."""
 
     tckn: int
     """Student's Turkish Citizen Identification Number"""
@@ -51,6 +53,7 @@ class EokulStudent:
     """Student's additional exam data as AdditionalExam object"""
 
     def __eq__(self, __o: object) -> bool:
+        """Compare two objects for equality."""
         if not isinstance(__o, EokulStudent):
             return False
         return self.tckn == __o.tckn
