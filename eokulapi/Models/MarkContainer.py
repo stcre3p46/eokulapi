@@ -38,13 +38,10 @@ class MarkContainer(EokulDictable):
         ort = {}
 
         for term, lessons in by_term:
-            print(lessons)
             lessons = list(lessons)
-            print(lessons)
             ort[term] = sum(
                 [lesson.lesson_weekly_period * lesson.score for lesson in lessons]
             ) / sum([lesson.lesson_weekly_period for lesson in lessons])
-            print(ort[term])
 
         return cls(ort, liste)
 
