@@ -21,7 +21,7 @@ from eokulapi.Models.Transfer import Transfer
 
 T = TypeVar("T")
 
-api = "https://e-okul.meb.gov.tr/mobileokulv2"
+api = "https://eokulapp.meb.gov.tr"
 """API base URL"""
 api_fixed_password = "2^Wd@FJhzWyaf&CE;47RY$.z>=.7~E>w"
 """Fixed password for API requests"""
@@ -437,7 +437,7 @@ class EokulAPI:
             "User-Agent": user_agent,
             "Content-Type": "application/json; charset=UTF-8",
             "Accept-Encoding": "gzip, deflate",
-            "Host": "e-okul.meb.gov.tr",
+            "Host": "eokulapp.meb.gov.tr",
             "Connection": "close",
         }
         if bearer:
