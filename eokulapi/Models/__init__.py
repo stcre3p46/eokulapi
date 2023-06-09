@@ -181,7 +181,7 @@ def month_to_int(month: Any) -> int:
     Returns:
         int: int value of the month if month is a month
     """
-    match from_str(month).lower():
+    match from_str(month).replace("I", "ı").lower():
         case "ocak":
             return 1
         case "şubat":
