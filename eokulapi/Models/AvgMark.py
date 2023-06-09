@@ -10,7 +10,7 @@ ABOVE_AVG = 1
 BELOW_AVG = -1
 """Indicates that the student's mark is below the class average"""
 
-EQUAL_AVG = ""
+EQUAL_AVG = 0
 """Indicates that the student's mark is equal to the class average"""
 
 NONE_AVG = 0
